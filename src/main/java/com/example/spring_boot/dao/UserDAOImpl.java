@@ -35,13 +35,17 @@ public class UserDAOImpl implements UserDAO {
         userToBeUpdated.setAge(updateUser.getAge());
         entityManager.merge(userToBeUpdated);
 
+
     }
 
     public void deleteUser(int id) {
 
-        entityManager.createQuery("delete from User user where user.id=:id")
-                .setParameter("id", id)
-                .executeUpdate();
+        User user = entityManager.find(User.class, id);
+        entityManager.remove(user);
+
+      //  entityManager.createQuery("delete from User user where user.id=:id")
+      //          .setParameter("id", id)
+      //          .executeUpdate();
 
     }
 }
